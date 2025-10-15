@@ -68,7 +68,8 @@ class EventosCrud extends Component
             $this->participantesDisponibles = collect();
         }
                 
-        return view('livewire.eventos-crud')->layout('layouts.app'); 
+        // return view('livewire.eventos-crud')->layout('layouts.app'); 
+        return view('livewire.eventos-crud'); 
     }
 
     public function create()
@@ -252,7 +253,11 @@ class EventosCrud extends Component
 
 
 
-
+public function abrirModalParticipantes($eventoId)
+{
+    $this->eventoSeleccionado = Evento::find($eventoId);
+    $this->showParticipantesModal = true;
+}
 
 
 

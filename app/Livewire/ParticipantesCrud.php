@@ -41,7 +41,7 @@ class ParticipantesCrud extends Component
     public function render()
     {
         $this->participantes = Participante::all();
-        return view('livewire.participantes-crud')->layout('layouts.app'); 
+        return view('livewire.participantes-crud'); 
     }
 
     public function create()

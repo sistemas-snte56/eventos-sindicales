@@ -25,58 +25,65 @@
                         class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mb-4 me-2">
                         Crear evento
                     </button>
-            
+
+
                     @if($isOpen)
                         @include('livewire.eventos-modal')
                     @endif
-            
-                    <table class="w-full border mb-4">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="border px-2 py-1">ID</th>
-                                <th class="border px-2 py-1">Título</th>
-                                <th class="border px-2 py-1">Fecha</th>
-                                <th class="border px-2 py-1">Lugar</th>
-                                <th class="border px-2 py-1">Modalidad</th>
-                                <th class="border px-2 py-1">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($eventos as $evento)
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border border-gray-300">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <td class="border px-2 py-1">{{ $evento->id }}</td>
-                                    <td class="border px-2 py-1">{{ $evento->titulo }}</td>
-                                    <td class="border px-2 py-1">{{ $evento->fecha_inicio }}</td>
-                                    <td class="border px-2 py-1">{{ $evento->sede }}</td>
-                                    <td class="border px-2 py-1">{{ $evento->modalidad }}</td>
-                                    <td class="border px-2 py-1">
-                                        <button wire:click="edit({{ $evento->id }})"
-                                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded">
-                                            Editar
-                                        </button>
-                                        <button wire:click="delete({{ $evento->id }})"
-                                            class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
-                                            Eliminar
-                                        </button>
-                                        <button wire:click="manageParticipants({{ $evento->id }})"
-                                            class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded">
-                                            Participantes
-                                        </button>                                        
-                                    </td>
+                                    <th class="px-4 py-2 text-base font-bold text-left">Id</th>
+                                    <th class="px-4 py-2 text-base font-bold text-left">Título</th>
+                                    <th class="px-4 py-2 text-base font-bold text-left">Fecha</th>
+                                    <th class="px-4 py-2 text-base font-bold text-left">Lugar</th>
+                                    <th class="px-4 py-2 text-base font-bold text-left">Modalidad</th>
+                                    <th class="px-4 py-2 text-base font-bold text-center">Acciones</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach($eventos as $evento)
+                                    <tr class="odd:bg-white even:bg-gray-100">
+                                        <td class="px-4 py-2 text-base text-gray-800">{{$evento->id}}</td>
+                                        <td class="px-4 py-2 text-base text-gray-800">{{$evento->titulo}}</td>
+                                        <td class="px-4 py-2 text-base text-gray-800">{{$evento->fecha_fin}}</td>
+                                        <td class="px-4 py-2 text-base text-gray-800">{{$evento->sede}}</td>
+                                        <td class="px-4 py-2 text-base text-gray-800">{{$evento->modalidad}}</td>
+                                        <td class="px-4 py-2 text-base text-center text-gray-800">
+                                            <button wire:click="edit({{ $evento->id }})"
+                                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded">
+                                                Editar
+                                            </button>
+                                            <button wire:click="delete({{ $evento->id }})"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">
+                                                Eliminar
+                                            </button>
+                                            <button
+                                                wire:click="$dispatch('abrir-modal-participantes', { eventoId: {{ $evento->id }} })"
+                                                class="bg-green-500 hover:bg-green-600 text-white text-base px-3 py-1 rounded">
+                                                Participantes
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
 
 
-                {{-- @include('livewire.eventos-participantes-modal') --}}
 
 
 
-                
             </div>
         </div>
     </div>
+
+
+
+                    {{-- Aquí va el componente del modal --}}
+                <livewire:eventos-participantes />
 </main>
